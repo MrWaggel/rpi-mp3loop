@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/labstack/echo"
 	"mp3loop/devices"
 	"mp3loop/easylog"
@@ -18,12 +19,24 @@ import (
 
 func main() {
 
+	fmt.Print("Init settings ...")
 	settings.Initialize()
+	fmt.Println("ok!")
+	fmt.Print("Init stats ...")
 	stats.Initialize()
+	fmt.Println("ok!")
+	fmt.Print("Init pbin ...")
 	pbin.Initialize()
+	fmt.Println("ok!")
+	fmt.Print("Init devices ...")
 	devices.Initialize()
+	fmt.Println("ok!")
+	fmt.Print("Init filemanager ...")
 	fileman.Initialize()
+	fmt.Println("ok!")
+	fmt.Print("Init playback ...")
 	playback.Initialize()
+	fmt.Println("ok!")
 
 	e := echo.New()
 

@@ -36,7 +36,7 @@ func load() error {
 		}
 	}
 
-	defer func() {
+	go func() {
 		time.Sleep(time.Second)
 		save()
 	}()
