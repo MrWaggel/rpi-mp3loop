@@ -8,6 +8,7 @@ import (
 	"mp3loop/settings"
 	"mp3loop/stats"
 	"sync"
+	"time"
 )
 
 var _stopChannel chan bool
@@ -85,7 +86,6 @@ func setRunning(b bool) {
 var _volDefault = float64(int(100) / 100)
 
 func ReStart() error {
-	var err error
 	// Close old one
 	Stop()
 
@@ -96,47 +96,54 @@ func ReStart() error {
 		return nil
 	}
 
-	playerContext, err := oto.NewContext(_mp3data.SampleRate, _mp3data.Channels, 2, _bufferSize)
-	if err != nil {
-		log.LogError(err)
-		return err
-	}
-	player := playerContext.NewPlayer()
-
 	_stopChannel = make(chan bool)
 
 	go func() {
+		defer func() {
+			time.Sleep(time.Second)
+			ReStart()
+		}()
 		setRunning(true)
-	nestedloop:
+	mainloop:
 		for {
-			select {
-			case <-_stopChannel:
-				_stopChannel = nil
-				player.Close()
-				playerContext.Close()
-				// close
-				break nestedloop
-			default:
-				nextBuf := _mp3reader.BufferNext()
-				vol := VolumeGet()
-				// Do volume magic
-				if vol != _volDefault {
-					for i := 0; i < len(nextBuf)/2; i++ {
-						v16 := int16(nextBuf[2*i]) | (int16(nextBuf[2*i+1]) << 8)
-						v16 = int16(float64(v16) * vol)
-						nextBuf[2*i] = byte(v16)
-						nextBuf[2*i+1] = byte(v16 >> 8)
+			playerContext, err := oto.NewContext(_mp3data.SampleRate, _mp3data.Channels, 2, _bufferSize)
+			if err != nil {
+				log.LogError(err)
+				return
+			}
+			player := playerContext.NewPlayer()
+
+		subloop:
+			for {
+				select {
+				case <-_stopChannel:
+					_stopChannel = nil
+					player.Close()
+					playerContext.Close()
+					// close
+					break mainloop
+				default:
+					nextBuf := _mp3reader.BufferNext()
+					vol := VolumeGet()
+					// Do volume magic
+					if vol != _volDefault {
+						for i := 0; i < len(nextBuf)/2; i++ {
+							v16 := int16(nextBuf[2*i]) | (int16(nextBuf[2*i+1]) << 8)
+							v16 = int16(float64(v16) * vol)
+							nextBuf[2*i] = byte(v16)
+							nextBuf[2*i+1] = byte(v16 >> 8)
+						}
 					}
-				}
 
-				if _mp3reader.IsLastChunk() {
-					stats.TotalPlaysInc()
-					_mp3reader.Reset()
-				}
-
-				_, err := player.Write(nextBuf)
-				if err != nil {
-					log.LogError(err)
+					_, err := player.Write(nextBuf)
+					if err != nil {
+						log.LogError(err)
+					}
+					if _mp3reader.IsLastChunk() {
+						stats.TotalPlaysInc()
+						_mp3reader.Reset()
+						break subloop
+					}
 				}
 			}
 		}
