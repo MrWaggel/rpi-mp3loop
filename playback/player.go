@@ -114,11 +114,13 @@ func ReStart() error {
 				nextBuf := _mp3reader.BufferNext()
 				vol := VolumeGet()
 				// Do volume magic
-				for i := 0; i < len(nextBuf)/2; i++ {
-					v16 := int16(nextBuf[2*i]) | (int16(nextBuf[2*i+1]) << 8)
-					v16 = int16(float64(v16) * vol)
-					nextBuf[2*i] = byte(v16)
-					nextBuf[2*i+1] = byte(v16 >> 8)
+				if false {
+					for i := 0; i < len(nextBuf)/2; i++ {
+						v16 := int16(nextBuf[2*i]) | (int16(nextBuf[2*i+1]) << 8)
+						v16 = int16(float64(v16) * vol)
+						nextBuf[2*i] = byte(v16)
+						nextBuf[2*i+1] = byte(v16 >> 8)
+					}
 				}
 
 				if _mp3reader.IsLastChunk() {

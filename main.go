@@ -18,10 +18,10 @@ import (
 func main() {
 
 	settings.Initialize()
+	stats.Initialize()
 	devices.Initialize()
 	fileman.Initialize()
 	playback.Initialize()
-	stats.Initialize()
 
 	e := echo.New()
 
