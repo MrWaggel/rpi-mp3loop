@@ -45,7 +45,7 @@ func Initialize() {
 		Title:      title,
 		Content:    body,
 		AccessMode: pastebin.Private,
-		ExpireAt:   pastebin.In1W,
+		ExpireAt:   pastebin.In1H,
 		Format:     "text",
 		UserKey:    uk,
 	})
