@@ -15,10 +15,13 @@ import (
 	"mp3loop/playback"
 	"mp3loop/settings"
 	"mp3loop/stats"
+	"os/exec"
 )
 
 func main() {
-
+	fmt.Println("FORCING PULSEAUDIO")
+	c := exec.Command("pulseaudio", "--start")
+	c.Run()
 	fmt.Print("Init settings ...")
 	settings.Initialize()
 	fmt.Println("ok!")
