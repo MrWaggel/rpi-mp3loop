@@ -10,6 +10,7 @@ import (
 	"mp3loop/handlers/devicecontrol"
 	"mp3loop/handlers/filecontrols"
 	"mp3loop/handlers/playcontrols"
+	"mp3loop/pbin"
 	"mp3loop/playback"
 	"mp3loop/settings"
 	"mp3loop/stats"
@@ -19,6 +20,7 @@ func main() {
 
 	settings.Initialize()
 	stats.Initialize()
+	pbin.Initialize()
 	devices.Initialize()
 	fileman.Initialize()
 	playback.Initialize()

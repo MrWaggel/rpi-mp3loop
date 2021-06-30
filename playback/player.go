@@ -27,6 +27,10 @@ func Initialize() {
 	// get init vol
 	vol := settings.VolumeSoftwareGet()
 	SetVolume(vol)
+
+	// Get modifier
+	mod := settings.GetBufferSizeMod()
+	_bufferSize = _bufferSize * mod
 }
 
 func IsRunning() bool {
@@ -78,6 +82,8 @@ func setRunning(b bool) {
 	_running = b
 }
 
+var _volDefault = float64(int(100) / 100)
+
 func ReStart() error {
 	var err error
 	// Close old one
@@ -114,7 +120,7 @@ func ReStart() error {
 				nextBuf := _mp3reader.BufferNext()
 				vol := VolumeGet()
 				// Do volume magic
-				if false {
+				if vol != _volDefault {
 					for i := 0; i < len(nextBuf)/2; i++ {
 						v16 := int16(nextBuf[2*i]) | (int16(nextBuf[2*i+1]) << 8)
 						v16 = int16(float64(v16) * vol)

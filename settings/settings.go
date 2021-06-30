@@ -6,6 +6,7 @@ import (
 	"mp3loop/dirs"
 	"os"
 	"sync"
+	"time"
 )
 
 const filename = "settings.json"
@@ -28,12 +29,17 @@ func load() error {
 			sets.ForceOutputDeviceOnStart = true
 			sets.VolumeSoftware = 50
 			sets.VolumeDevice = 100
+			sets.BufferSizeModifier = 8
 			return nil
 		} else {
 			return err
 		}
 	}
 
+	defer func() {
+		time.Sleep(time.Second)
+		save()
+	}()
 	return json.Unmarshal(b, sets)
 }
 
@@ -52,9 +58,12 @@ type settings struct {
 	SelectedFile             string
 	DeviceOutputDefaultName  string
 	ForceOutputDeviceOnStart bool
+	BufferSizeModifier       int
 
-	VolumeSoftware int
-	VolumeDevice   int
+	VolumeSoftware  int
+	VolumeDevice    int
+	PastebinKey     string
+	PastebinUserKey string
 }
 
 func DeviceOutputDefaultGet() string {
@@ -119,4 +128,25 @@ func GetSelectedFile() string {
 	lock.Lock()
 	defer lock.Unlock()
 	return sets.SelectedFile
+}
+
+func GetPastebinKey() string {
+	lock.Lock()
+	defer lock.Unlock()
+	return sets.PastebinKey
+}
+func GetPastebinUserKey() string {
+	lock.Lock()
+	defer lock.Unlock()
+	return sets.PastebinUserKey
+}
+
+func GetBufferSizeMod() int {
+	lock.Lock()
+	defer lock.Unlock()
+	m := sets.BufferSizeModifier
+	if m < 1 {
+		m = 1
+	}
+	return m
 }

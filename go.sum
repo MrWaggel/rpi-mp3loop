@@ -1,5 +1,7 @@
 github.com/MrWaggel/rpi-mp3loop v0.0.0-20210630122556-5760a2c03059 h1:QRkyN/DZLUtQsQwHRnGnezoJXYrTTlorD6cq1cdz7Mw=
 github.com/MrWaggel/rpi-mp3loop v0.0.0-20210630122556-5760a2c03059/go.mod h1:pD7mr+hjav6Jnl+ucPqQFRjM0+7JtAyvNUM3TNaDl88=
+github.com/Ronmi/pastebin v0.0.0-20180209215645-c677cc16dbd7 h1:OFiiu7rGBLZBQSLlUzLOdqPbtlMP7tuScr5Y8rXWS4E=
+github.com/Ronmi/pastebin v0.0.0-20180209215645-c677cc16dbd7/go.mod h1:KOzQBAlu93j1pK3BaEP/nUpqwyYAlgK0NtER15bN0iI=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/hajimehoshi/oto v0.7.1 h1:I7maFPz5MBCwiutOrz++DLdbr4rTzBsbBuV2VpgU9kk=
 github.com/hajimehoshi/oto v0.7.1/go.mod h1:wovJ8WWMfFKvP587mhHgot/MBr4DnNy9m6EepeVGnos=

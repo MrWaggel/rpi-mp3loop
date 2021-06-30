@@ -16,7 +16,7 @@ const (
 	LOG_ERROR
 )
 
-var PrintLogsInConsole = true
+var PrintLogsInConsole = false
 
 const logLimit = 200
 

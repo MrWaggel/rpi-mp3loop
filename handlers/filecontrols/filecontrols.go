@@ -3,7 +3,6 @@ package filecontrols
 import (
 	"bytes"
 	"errors"
-	"github.com/kr/pretty"
 	"github.com/labstack/echo"
 	"github.com/tosone/minimp3"
 	"io"
@@ -70,8 +69,6 @@ func AddFile(c echo.Context) error {
 		return c.JSON(200, handlers.ResponseError(err))
 	}
 
-	pretty.Println(dec)
-
 	if dec.Kbps < 12 {
 		err = errors.New("provided file is not an MP3")
 		log.LogError(err)
@@ -114,8 +111,6 @@ func RemoveFile(c echo.Context) error {
 		log.LogError(err)
 		return err
 	}
-
-	pretty.Println(sel)
 
 	err = fileman.Remove(sel.Filename)
 	c.JSON(200, handlers.ResponseError(err))
@@ -171,8 +166,6 @@ func FileInfo(c echo.Context) error {
 	}
 
 	files := fileman.GetFiles()
-
-	pretty.Println(files)
 
 	for _, v := range files {
 		if v.Name == sel.Filename {

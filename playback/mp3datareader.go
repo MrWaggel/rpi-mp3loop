@@ -1,6 +1,6 @@
 package playback
 
-const _bufferSize = 1024 * 16
+var _bufferSize = 1024
 
 type MP3DataReader struct {
 	data       []byte
