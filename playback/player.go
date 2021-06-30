@@ -20,6 +20,9 @@ var _volumeMutex = sync.Mutex{}
 var _volume = float64(1.0)
 
 func Initialize() {
+	// Get modifier
+	mod := settings.GetBufferSizeMod()
+	_bufferSize = _bufferSize * mod
 	// load default song
 	defaultfilepath := fileman.DefaultFilePath()
 	PlayFile2(defaultfilepath)
@@ -28,9 +31,6 @@ func Initialize() {
 	vol := settings.VolumeSoftwareGet()
 	SetVolume(vol)
 
-	// Get modifier
-	mod := settings.GetBufferSizeMod()
-	_bufferSize = _bufferSize * mod
 }
 
 func IsRunning() bool {
