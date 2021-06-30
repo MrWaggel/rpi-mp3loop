@@ -3,7 +3,6 @@ package filecontrols
 import (
 	"bytes"
 	"errors"
-	"fmt"
 	"github.com/kr/pretty"
 	"github.com/labstack/echo"
 	"github.com/tosone/minimp3"
@@ -62,10 +61,6 @@ func AddFile(c echo.Context) error {
 		log.LogError(err)
 		return c.JSON(200, handlers.ResponseError(err))
 	}
-
-	fmt.Println("received file")
-	fmt.Println(buf.Len())
-	fmt.Println(ffile.Filename)
 
 	// Check if file is mp3
 	dec, _, err := minimp3.DecodeFull(buf.Bytes())
@@ -174,12 +169,6 @@ func FileInfo(c echo.Context) error {
 		log.LogError(err)
 		return err
 	}
-	fmt.Println("FILEINFo")
-	fmt.Println(sel)
-	fmt.Println(sel)
-	fmt.Println("FILEINFo")
-	fmt.Println("FILEINFo")
-	fmt.Println("FILEINFo")
 
 	files := fileman.GetFiles()
 

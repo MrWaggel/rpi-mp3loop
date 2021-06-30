@@ -23,8 +23,6 @@ func main() {
 	playback.Initialize()
 	stats.Initialize()
 
-	//fmt.Println(playback.PlayFile2("/home/dev/tmp/mp3loop/files/Muse - Revolt.mp3"))
-
 	e := echo.New()
 
 	filecontrols.Initialize(e)

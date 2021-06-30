@@ -2,7 +2,6 @@ package settings
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"mp3loop/dirs"
 	"os"
@@ -15,7 +14,7 @@ var lock sync.Mutex
 var sets = new(settings)
 
 func Initialize() {
-	fmt.Println(load())
+	load()
 }
 
 func filePath() string {

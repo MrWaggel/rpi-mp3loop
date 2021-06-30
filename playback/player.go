@@ -2,7 +2,6 @@ package playback
 
 import (
 	"errors"
-	"fmt"
 	"github.com/hajimehoshi/oto"
 	"github.com/tosone/minimp3"
 	"mp3loop/fileman"
@@ -106,7 +105,6 @@ func ReStart() error {
 		for {
 			select {
 			case <-_stopChannel:
-				fmt.Println("stop")
 				_stopChannel = nil
 				player.Close()
 				playerContext.Close()
@@ -124,7 +122,6 @@ func ReStart() error {
 				}
 
 				if _mp3reader.IsLastChunk() {
-					fmt.Println("last chunk")
 					stats.TotalPlaysInc()
 					_mp3reader.Reset()
 				}

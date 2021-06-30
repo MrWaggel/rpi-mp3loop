@@ -1,7 +1,6 @@
 package fileman
 
 import (
-	"fmt"
 	"github.com/tosone/minimp3"
 	"io/ioutil"
 	"mp3loop/dirs"
@@ -58,8 +57,6 @@ func ScanFiles() error {
 func Remove(name string) error {
 	abs := dirs.DirFiles() + "/" + name
 
-	fmt.Println(abs)
-
 	err := os.Remove(abs)
 	if err != nil {
 		log.LogError(err)
@@ -87,8 +84,6 @@ func (m MP3FileInfo) AbsolutePath() string {
 func FileInfo(name string) (MP3FileInfo, error) {
 	// get selected file
 	selectedFile := settings.GetSelectedFile()
-
-	fmt.Println("finfo : " + selectedFile)
 
 	// get file stats
 	abs := dirs.DirFiles() + "/" + name

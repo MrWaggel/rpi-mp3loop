@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"bytes"
 	"errors"
-	"fmt"
 	"mp3loop/easylog"
 	"mp3loop/playback"
 	"mp3loop/settings"
@@ -26,7 +25,6 @@ func Initialize() {
 
 func StartCheck() {
 	// check if we have to force settings
-	fmt.Println("start cvheck")
 	devname := settings.DeviceOutputDefaultGet()
 
 	// First time run
@@ -47,7 +45,6 @@ func StartCheck() {
 
 	}
 
-	fmt.Println("done check")
 }
 
 type DeviceInfo struct {
@@ -319,8 +316,6 @@ func SetDefaultDevice(nameDevice string) error {
 
 	outstr := output.String()
 
-	fmt.Println("Outut ")
-	fmt.Println(outstr)
 	if len(outstr) > 2 {
 		err = errors.New("cannot change default output device: " + outstr)
 		log.LogError(err)
