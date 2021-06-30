@@ -175,7 +175,7 @@ let pagePlayback = {
             setTimeout(function () {
                 pagePlayback.backgroundUpdate();
                 // wait a minute after you recieved the data
-            }, 1000);
+            }, 1100);
         });
     },
     updateStatus: function (bool) {
