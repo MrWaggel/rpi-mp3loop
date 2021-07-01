@@ -146,6 +146,9 @@ func ReStart() error {
 					}
 				}
 			}
+			player.Close()
+			playerContext.Close()
+
 		}
 		setRunning(false)
 	}()
